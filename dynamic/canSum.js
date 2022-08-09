@@ -1,3 +1,30 @@
+// o(n^m) o(m)
+// to o(n * m) o(m)
+const canSum = (target, numbers, memo = {}) => {
+  if (target in memo) return memo[target];
+  if (target === 0) return true;
+  if (target < 0) return false;
+  for (let num of numbers) {
+    if (canSum(target - num, numbers, memo) == true) {
+      memo[target] = true;
+      return true;
+    }
+  }
+  memo[target] = false;
+  return false;
+}
+console.log(canSum(3, [1, 1, 1]), "true"); // true
+console.log(canSum(3, [1, 1, 2]), "true"); // true
+console.log(canSum(1, [1, 2, 3]), "true"); // true
+console.log(canSum(1, [2, 3]), "false"); // false
+console.log(canSum(7, [2, 3, 4]), "true"); // true
+console.log(canSum(9, [2, 3, 4]), "true"); // true
+console.log(canSum(10, [2, 3, 4]), "true"); // false
+console.log(canSum(100, [7, 14]), "false"); // false
+console.log(canSum(300, [7, 14]), "false"); // false
+
+
+
 // const canSum = (target , numbers) => {
 //     if (target === 0) return true;
 //     if (target < 0) return false;
@@ -49,20 +76,3 @@
 // console.log(canSum (100, [7, 14]), "false"); // false
 
 
-const canSum = (target , numbers, memo = {}) => {
-    if (target in memo) return memo[target];
-    if (target === 0) return true;
-    if (target < 0) return false;
-    for (let num of numbers) {
-      if (canSum(target - num, numbers) == true) return true;
-    }
-    return false;
-}
-console.log(canSum (3, [1,1,1]), "true"); // true
-console.log(canSum (3, [1,1,2]), "true"); // true
-console.log(canSum (1, [1,2,3]), "true"); // true
-console.log(canSum (1, [2,3]), "false"); // false
-console.log(canSum (7, [2,3,4]), "true"); // true
-console.log(canSum (9, [2,3,4]), "true"); // true
-console.log(canSum (10, [2,3,4]), "true"); // false
-console.log(canSum (100, [7, 14]), "false"); // false
